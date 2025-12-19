@@ -14,9 +14,10 @@ Bidirectional sync between Craft documents and Motion workspaces using Claude Ha
 ## Cost Estimate
 
 **With $10/month budget:**
-- ~30-40 syncs per day
-- Recommended schedule: Every 30 minutes during active hours (6 AM - 11 PM GMT+7)
-- ~34 syncs/day = well within budget
+- 15 syncs per day
+- Recommended schedule: Every hour during active hours (7 AM - 9 PM GMT+7)
+- 15 syncs/day × 20,000 tokens = ~300K tokens/day = ~$0.12/day = ~$3.60/month
+- Well within budget with room for occasional manual syncs
 
 ## Deployment to Railway
 
@@ -66,16 +67,11 @@ In Railway:
 2. Click "Cron" tab
 3. Add a new cron job:
 
-**Active hours (6 AM - 11 PM GMT+7):**
+**15 syncs per day - Every hour during active hours (7 AM - 9 PM GMT+7):**
 ```
-*/30 0-16,23 * * *
+0 0-14 * * *
 ```
-This runs every 30 minutes from 6 AM to 11 PM GMT+7 (midnight-4 PM, 11 PM UTC)
-
-**Or simpler - every 30 minutes all day:**
-```
-*/30 * * * *
-```
+This runs at the top of each hour from 7 AM to 9 PM GMT+7 (midnight-2 PM UTC)
 
 4. Command: `npm run sync`
 
@@ -155,7 +151,7 @@ npm test
 ## Architecture
 
 ```
-Railway Cron (every 30 min)
+Railway Cron (hourly 7 AM - 9 PM GMT+7)
     ↓
 sync.js (Node.js script)
     ↓
@@ -171,7 +167,7 @@ Craft MCP ↔ Motion API
 Track costs in Railway dashboard:
 - Each sync uses ~15,000-30,000 tokens
 - Haiku pricing: ~$0.40 per million tokens
-- 34 syncs/day × 20,000 tokens = ~680K tokens/day = ~$0.27/day = ~$8/month
+- 15 syncs/day × 20,000 tokens = ~300K tokens/day = ~$0.12/day = ~$3.60/month
 
 ## Support
 
