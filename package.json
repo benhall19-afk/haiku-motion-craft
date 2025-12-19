@@ -1,0 +1,20 @@
+{
+  "name": "motion-sync-agent",
+  "version": "1.0.0",
+  "description": "Bidirectional sync between Craft documents and Motion workspaces using Claude Haiku",
+  "main": "sync.js",
+  "scripts": {
+    "sync": "node sync.js",
+    "test": "node sync.js --dry-run"
+  },
+  "keywords": ["motion", "craft", "sync", "automation"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
