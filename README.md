@@ -57,7 +57,10 @@ In Railway dashboard, add these variables:
 ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
 CRAFT_SPACE_ID=your-craft-space-id
 CRAFT_API_TOKEN=your-craft-api-token
+MOTION_API_KEY=your-motion-api-key
 ```
+
+**Important:** The Motion API key can be found in your Craft "Motion Sync Configuration" document, but must also be set here for the MCP server to access Motion's API.
 
 ### 5. Set Up Cron Schedule
 
@@ -103,15 +106,18 @@ npm test
 
 ## How It Works
 
-1. **Agent loads** your Motion Sync Agent instructions from Craft (document ID: 1723)
-2. **Fetches mappings** from Sync Mappings collection to understand current state
-3. **Compares** Craft tasks/projects with Motion tasks/projects
-4. **Syncs differences**:
+1. **Connects to Craft MCP server** using your space credentials
+2. **Loads available MCP tools** (Craft documents, Motion API, etc.)
+3. **Starts Claude Haiku** with access to all MCP tools
+4. **Agent loads** your Motion Sync Agent instructions from Craft (document ID: 1723)
+5. **Executes sync workflow**:
+   - Fetches mappings from Sync Mappings collection (ID: 1619)
+   - Compares Craft tasks/projects with Motion tasks/projects
    - Creates missing tasks/projects in either system
    - Updates changed items (latest-wins conflict resolution)
    - Syncs dates: Start dates one-way (Motion → Craft), deadlines bidirectional
    - Updates labels based on Craft document location
-5. **Logs results** to Craft Notifications collection
+6. **Logs results** to Craft Notifications collection (ID: 2041)
 
 ## Sync Rules
 
