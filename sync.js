@@ -19,7 +19,7 @@ async function runSync() {
   try {
     // Create a conversation with the Motion Sync Agent
     const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20250929', // Using Haiku for cost efficiency
+      model: 'claude-haiku-3-5-20241022', // Using Haiku for cost efficiency
       max_tokens: 8000,
       system: [
         {
